@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,22 +21,40 @@ import java.io.IOException;
 public class HelloApplication extends Application {
 
 
-    // Saves the users playing token
-    String token = "O";
-    // This is an int list to determine if the slot already has a token within the grid
-    // 0 -> unoccupied, 1 -> X, 2 -> O
-    int[][] board = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+    //Initialize variables
+    Scene gameScene;
     Pane canvas = new Pane();
+    String token = "O";
     boolean turn = true;
     // this group allows the tokens to be wiped at any time to start a new game
     Group tokens = new Group();
+    // This is an int list to determine if the slot already has a token within the grid
+    // 0 -> unoccupied, 1 -> X, 2 -> O
+    int[][] board = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 
     // Cleans all variables for another game
     public void clear() {
         tokens.getChildren().clear();
         board = new int[][]{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
-        System.out.println(board[0]);
         turn = true;
+    }
+
+    //This function displays the winner page
+    public void drawWinner(Stage stage, String token){
+        Scene winScene;
+        Pane winCanvas = new Pane();
+        String phrase = token + " wins";
+        Button exitWinScreen = new Button("Nice");
+        Text youWin = new Text(285, 250, phrase);
+        youWin.setScaleX(15);
+        youWin.setScaleY(15);
+        exitWinScreen.resizeRelocate(280, 460, 1, 1);
+        exitWinScreen.setOnAction(e -> stage.setScene(gameScene));
+        clear();
+
+        winCanvas.getChildren().addAll(exitWinScreen, youWin);
+        winScene = new Scene(winCanvas, 600, 500);
+        stage.setScene(winScene);
     }
 
     // This function checks if the game has been won/lost/drawn
@@ -268,7 +287,6 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException, Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene gameScene;
         stage.setTitle("Tic Tac & Chat");
 
 
@@ -317,6 +335,7 @@ public class HelloApplication extends Application {
         //goToChat.setOnAction(e -> stage.setScene(chatScene)); /////////////// UNCOMMENT WHEN CHAT SCENE EXISTS. ///////////////
 
 
+
         //Mouse click system to spawn tokens
         canvas.setOnMouseClicked(event -> {
             //Limit gameplay to turns
@@ -326,6 +345,7 @@ public class HelloApplication extends Application {
                     int res = checkWinner(loc);
                     if (res == 1) {
                         System.out.println(token + " IS THE WINNER");
+                        drawWinner(stage, token);
                     } else if (res == 2) {
                         System.out.println("GAME DRAW");
                     }
