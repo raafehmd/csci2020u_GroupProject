@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -37,29 +39,32 @@ public class HelloApplication extends Application {
     }
 
     // This function checks if the game has been won/lost/drawn
-    public boolean checkWinner(int[] loc) {
+    public int checkWinner(int[] loc) {
+
         int i = loc[0];
         int j = loc[1];
         int playerToken = board[i][j];
 
-        boolean won = true;
+        // This int won will indicate whether we have a win/lose/draw
+        // won = 0 -> LOSS, 1 -> WIN (Current Player), 2 -> DRAW
+        int won = 1;
 
         // check for winner in row
         if (board[i] != new int[]{0, 0, 0}) {
             for (int token : board[i]) {
                 if (token != playerToken) {
-                    won = false;
+                    won = 0;
                     break;
                 }
             }
         }
 
         // check for winner in column
-        if (won == false) {
-            won = true;
+        if (won == 0) {
+            won = 1;
             for (int ii = 0; ii < 3; ii++) {
                 if (board[ii][j] != playerToken) {
-                    won = false;
+                    won = 0;
                     break;
                 }
             }
@@ -67,28 +72,42 @@ public class HelloApplication extends Application {
 
         // check for winner on diagonals
         // left diagonal
-        if (i == j && won == false) {
-            won = true;
+        if (i == j && won == 0) {
+            won = 1;
             for (int ii = 0; ii < 3; ii++) {
                 for (int jj = 0; jj < 3; jj++) {
                     if (ii == jj && board[ii][jj] != playerToken) {
-                        won = false;
+                        won = 0;
                         break;
                     }
                 }
             }
-        } else if (i + j == 2 && won == false) { // right diagonal
-            won = true;
+        } else if (i + j == 2 && won == 0) { // right diagonal
+            won = 1;
             for (int ii = 0; ii < 3; ii++) {
                 for (int jj = 0; jj < 3; jj++) {
                     if (ii + jj == 2 && board[ii][jj] != playerToken) {
-                        won = false;
+                        won = 0;
                         break;
                     }
                 }
             }
         }
 
+        // check for draw
+        if (won == 0) { // making sure player hasn't won
+            won = 2;
+            for (int[] row : board) {
+                if (won == 2) {
+                    for (int entry : row) {
+                        if (entry == 0) {
+                            won = 0;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
 
         return won;
     }
@@ -304,12 +323,29 @@ public class HelloApplication extends Application {
             if (turn) {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     int[] loc = drawToken(token, event.getX(), event.getY());
-                    if (checkWinner(loc)) {
+                    int res = checkWinner(loc);
+                    if (res == 1) {
                         System.out.println(token + " IS THE WINNER");
+                    } else if (res == 2) {
+                        System.out.println("GAME DRAW");
                     }
                 }
             }
         });
+
+        /*
+        // Testing game mechanics by changing token mid-game
+        // to simulate back and forth between players
+        canvas.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.C) {
+                if (token == "X") {
+                    token = "O";
+                } else if (token == "O") {
+                    token = "X";
+                }
+            }
+        });
+        */
 
         //Add all elements to the canvas and display them
         canvas.getChildren().addAll(goToChat, board1, board2, board3, board4, label1, head, body, label2, head2, body2, menuBar, tokens);
