@@ -40,7 +40,7 @@ public class HelloApplication extends Application {
     }
 
     //This function displays the winner page
-    public void drawWinner(Stage stage, String token){
+    public void drawWinner(Stage stage, String token) {
         Scene winScene;
         Pane winCanvas = new Pane();
         String phrase = token + " wins";
@@ -55,6 +55,24 @@ public class HelloApplication extends Application {
         winCanvas.getChildren().addAll(exitWinScreen, youWin);
         winScene = new Scene(winCanvas, 600, 500);
         stage.setScene(winScene);
+    }
+
+    //This function displays the game draw page
+    public void drawDraw(Stage stage) {
+        Scene drawScene;
+        Pane drawCanvas = new Pane();
+        String phrase = "It's a Draw!";
+        Button exitDrawScreen = new Button("Ah man..");
+        Text itsDraw = new Text(285, 250, phrase);
+        itsDraw.setScaleX(8);
+        itsDraw.setScaleY(8);
+        exitDrawScreen.resizeRelocate(280, 460, 1, 1);
+        exitDrawScreen.setOnAction(e -> stage.setScene(gameScene));
+        clear();
+
+        drawCanvas.getChildren().addAll(exitDrawScreen, itsDraw);
+        drawScene = new Scene(drawCanvas, 600, 500);
+        stage.setScene(drawScene);
     }
 
     // This function checks if the game has been won/lost/drawn
@@ -335,7 +353,6 @@ public class HelloApplication extends Application {
         //goToChat.setOnAction(e -> stage.setScene(chatScene)); /////////////// UNCOMMENT WHEN CHAT SCENE EXISTS. ///////////////
 
 
-
         //Mouse click system to spawn tokens
         canvas.setOnMouseClicked(event -> {
             //Limit gameplay to turns
@@ -348,12 +365,13 @@ public class HelloApplication extends Application {
                         drawWinner(stage, token);
                     } else if (res == 2) {
                         System.out.println("GAME DRAW");
+                        drawDraw(stage);
                     }
                 }
             }
         });
 
-        /*
+
         // Testing game mechanics by changing token mid-game
         // to simulate back and forth between players
         canvas.setOnKeyPressed(event -> {
@@ -365,7 +383,7 @@ public class HelloApplication extends Application {
                 }
             }
         });
-        */
+
 
         //Add all elements to the canvas and display them
         canvas.getChildren().addAll(goToChat, board1, board2, board3, board4, label1, head, body, label2, head2, body2, menuBar, tokens);
