@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="92ec83f1-5032-4e8d-94f1-581a46760734" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/csci2020u_GroupProject.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/proj2.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/src/main/java/com/example/proj2/Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/src/main/java/com/example/proj2/ClientClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/src/main/java/com/example/proj2/Server.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/src/main/java/com/example/proj2/ServerClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/src/main/java/module-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/target/classes/com/example/proj2/Client$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/target/classes/com/example/proj2/Client$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/target/classes/com/example/proj2/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/target/classes/com/example/proj2/ClientClass$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/target/classes/com/example/proj2/ClientClass.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/target/classes/com/example/proj2/Server$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/target/classes/com/example/proj2/Server$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/target/classes/com/example/proj2/Server.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/target/classes/com/example/proj2/ServerClass$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/target/classes/com/example/proj2/ServerClass.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2-client-attempt/proj2/target/classes/module-info.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/7.3.3/checksums/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/7.3.3/checksums/md5-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/7.3.3/checksums/sha1-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/7.3.3/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/7.3.3/dependencies-accessors/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/7.3.3/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/7.3.3/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/7.3.3/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/7.3.3/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/7.3.3/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/7.3.3/fileHashes/resourceHashesCache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/7.3.3/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/file-system.probe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.gradle/vcs-1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/build/classes/java/main/com/example/groupproject/HelloApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/build/classes/java/main/com/example/groupproject/HelloController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/build/classes/java/main/module-info.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/build/libs/groupProject-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/build/resources/main/com/example/groupproject/hello-view.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/build/scripts/groupProject" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/build/scripts/groupProject.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/build/tmp/jar/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/src/main/java/com/example/groupproject/HelloApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/src/main/java/com/example/groupproject/HelloController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/src/main/java/module-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProject/src/main/resources/com/example/groupproject/hello-view.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/7.3.3/checksums/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/7.3.3/checksums/md5-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/7.3.3/checksums/sha1-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/7.3.3/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/7.3.3/dependencies-accessors/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/7.3.3/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/7.3.3/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/7.3.3/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/7.3.3/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/7.3.3/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/7.3.3/fileHashes/resourceHashesCache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/7.3.3/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/file-system.probe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/vcs-1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/workspace-id.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.gradle/workspace-id.txt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/build/classes/java/main/com/example/groupproject/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/build/classes/java/main/com/example/groupproject/Game$Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/build/classes/java/main/com/example/groupproject/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/build/classes/java/main/com/example/groupproject/GameApp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/build/classes/java/main/com/example/groupproject/Server.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/build/classes/java/main/module-info.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/build/distributions/groupProject-1.0-SNAPSHOT.tar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/build/distributions/groupProject-1.0-SNAPSHOT.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/build/libs/groupProject-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/build/resources/main/com/example/groupproject/hello-view.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/build/scripts/groupProject" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/build/scripts/groupProject.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/build/tmp/jar/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/src/main/java/com/example/groupproject/Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/src/main/java/com/example/groupproject/GameApp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/src/main/java/com/example/groupproject/Server.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/src/main/java/module-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../groupProjectRaafe/src/main/resources/com/example/groupproject/hello-view.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../olivia-proj2.zip" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="TicTac&amp;Chat" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="TicTac&amp;Chat" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="TicTac&amp;Chat" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="27oHCwk8lUR1YZqOhsZWwqAKpeK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.2260184" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager" selected="Application.GameApp">
+    <configuration name="GameApp" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.groupproject.GameApp" />
+      <module name="TicTac&amp;Chat.main" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;192.168.100.103&quot;" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.groupproject.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.groupproject.Server" />
+      <module name="TicTac&amp;Chat.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.groupproject.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TicTac&amp;Chat [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.GameApp" />
+        <item itemvalue="Application.Server" />
+        <item itemvalue="Gradle.TicTac&amp;Chat [build]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="92ec83f1-5032-4e8d-94f1-581a46760734" name="Changes" comment="" />
+      <created>1649979398018</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1649979398018</updated>
+    </task>
+    <servers />
+  </component>
+</project>
