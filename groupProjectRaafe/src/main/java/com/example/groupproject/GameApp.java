@@ -6,7 +6,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.concurrent.Service;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -19,46 +18,38 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.concurrent.Task;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 public class GameApp extends Application {
 
-    static Scene gameScene;
-    static Pane canvas = new Pane();
-    static Stage stage0;
+    Scene gameScene;
+    Pane canvas = new Pane();
+    Stage stage0;
     static Client client;
 
-    static boolean turn = true;
-    static boolean taskRunning = false;
-    static Group tokens = new Group();
-    static int board[] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-    static boolean drawTokenBool = false;
-    static int drawTokenHere = 0;
-    static String drawTokenToken = "X";
+    boolean turn = true;
+    boolean threadStarted = false;
+    Group tokens = new Group();
+    int board[] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 
     // Cleans all variables for another game
-    public static void clear() {
+    public void clear() {
         tokens.getChildren().clear();
         board = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
         turn = true;
     }
 
     //This function displays the winner page
-    public static void drawWinner(Stage stage) {
+    public void drawWinner(Stage stage) {
         Scene winScene;
         Pane winCanvas = new Pane();
         String phrase = "You Win!";
         Button exitWinScreen = new Button("Nice");
         Text youWin = new Text(285, 250, phrase);
-        youWin.setScaleX(15);
-        youWin.setScaleY(15);
+        youWin.setScaleX(8);
+        youWin.setScaleY(8);
         exitWinScreen.resizeRelocate(280, 460, 1, 1);
         exitWinScreen.setOnAction(e -> stage.setScene(gameScene));
         clear();
@@ -69,14 +60,14 @@ public class GameApp extends Application {
     }
 
     //This function displays the loser page
-    public static void drawLoser(Stage stage) {
+    public void drawLoser(Stage stage) {
         Scene winScene;
         Pane winCanvas = new Pane();
         String phrase = "You Lose :(";
         Button exitWinScreen = new Button("Tsk..");
         Text youWin = new Text(285, 250, phrase);
-        youWin.setScaleX(15);
-        youWin.setScaleY(15);
+        youWin.setScaleX(8);
+        youWin.setScaleY(10);
         exitWinScreen.resizeRelocate(280, 460, 1, 1);
         exitWinScreen.setOnAction(e -> stage.setScene(gameScene));
         clear();
@@ -87,7 +78,7 @@ public class GameApp extends Application {
     }
 
     //This function displays the game draw page
-    public static void drawDraw(Stage stage) {
+    public void drawDraw(Stage stage) {
         Scene drawScene;
         Pane drawCanvas = new Pane();
         String phrase = "It's a Draw!";
@@ -105,14 +96,14 @@ public class GameApp extends Application {
     }
 
     //This function displays the player left page
-    public static void drawOpponentLeft(Stage stage) {
+    public void drawOpponentLeft(Stage stage) {
         Scene winScene;
         Pane winCanvas = new Pane();
         String phrase = "Opponent Left!";
         Button exitWinScreen = new Button("Exit");
         Text youWin = new Text(285, 250, phrase);
-        youWin.setScaleX(15);
-        youWin.setScaleY(15);
+        youWin.setScaleX(8);
+        youWin.setScaleY(8);
         exitWinScreen.resizeRelocate(280, 460, 1, 1);
         exitWinScreen.setOnAction(e -> stage.setScene(gameScene));
         clear();
@@ -157,63 +148,13 @@ public class GameApp extends Application {
         return loc;
     }
 
-    static Task task = new Task<Void>() {
-        @Override
-        public Void call() throws IOException {
-            try {
-                var response = client.getNextLine();
-                var token = response.substring(8);
-                var opponentToken = token == "X" ? "O" : "X";
-                while (client.getScanner().hasNextLine()) {
-                    System.out.println("here!!");
-                    response = client.getNextLine();
-                    if (response.startsWith("VALID_MOVE")) {
-                        int loc = Integer.parseInt(response.substring(12));
-                        drawTokenBool = true;
-                        drawTokenHere = loc;
-                        drawTokenToken = token;
-                    } else if (response.startsWith("OPPONENT_MOVED")) {
-                        var loc = Integer.parseInt(response.substring(15));
-                        drawToken(opponentToken, loc);
-                    } else if (response.startsWith("MESSAGE")) {
-                    } else if (response.startsWith("VICTORY")) {
-                        drawWinner(stage0);
-                        break;
-                    } else if (response.startsWith("DEFEAT")) {
-                        drawLoser(stage0);
-                        break;
-                    } else if (response.startsWith("DRAW")) {
-                        drawDraw(stage0);
-                        break;
-                    } else if (response.startsWith("OTHER_PLAYER_LEFT")) {
-                        drawOpponentLeft(stage0);
-                        break;
-                    }
-                }
-                client.printOut("QUIT");
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                client.closeSocket();
-            }
-            return null;
-        }
-    };
-
-    public static void startTask() {
-        if (!taskRunning) {
-            new Thread(task).start();
-            taskRunning = true;
-        }
-    }
-
     // This function draws the players corresponding token within the tile they clicked in if it is their turn
-    public static void drawToken(String token, int loc) {
+    public void drawToken(String token, int loc) {
 
         // System.out.println(mouseX + " " + mouseY); // For debugging purposes
 
         if (loc == 0) {
-            if (token == "X") {
+            if (token.equals("X")) {
                 Line X1 = new Line(170, 120, 230, 180);
                 Line X2 = new Line(230, 120, 170, 180);
                 tokens.getChildren().addAll(X1, X2);
@@ -224,7 +165,7 @@ public class GameApp extends Application {
                 tokens.getChildren().addAll(O1);
             }
         } else if (loc == 1) {
-            if (token == "X") {
+            if (token.equals("X")) {
                 Line X1 = new Line(270, 120, 330, 180);
                 Line X2 = new Line(330, 120, 270, 180);
                 tokens.getChildren().addAll(X1, X2);
@@ -235,7 +176,7 @@ public class GameApp extends Application {
                 tokens.getChildren().addAll(O1);
             }
         } else if (loc == 2) {
-            if (token == "X") {
+            if (token.equals("X")) {
                 Line X1 = new Line(370, 120, 430, 180);
                 Line X2 = new Line(430, 120, 370, 180);
                 tokens.getChildren().addAll(X1, X2);
@@ -246,7 +187,7 @@ public class GameApp extends Application {
                 tokens.getChildren().addAll(O1);
             }
         } else if (loc == 3) {
-            if (token == "X") {
+            if (token.equals("X")) {
                 Line X1 = new Line(170, 220, 230, 280);
                 Line X2 = new Line(230, 220, 170, 280);
                 tokens.getChildren().addAll(X1, X2);
@@ -257,7 +198,7 @@ public class GameApp extends Application {
                 tokens.getChildren().addAll(O1);
             }
         } else if (loc == 4) {
-            if (token == "X") {
+            if (token.equals("X")) {
                 Line X1 = new Line(270, 220, 330, 280);
                 Line X2 = new Line(330, 220, 270, 280);
                 tokens.getChildren().addAll(X1, X2);
@@ -268,7 +209,7 @@ public class GameApp extends Application {
                 tokens.getChildren().addAll(O1);
             }
         } else if (loc == 5) {
-            if (token == "X") {
+            if (token.equals("X")) {
                 Line X1 = new Line(370, 220, 430, 280);
                 Line X2 = new Line(430, 220, 370, 280);
                 tokens.getChildren().addAll(X1, X2);
@@ -279,7 +220,7 @@ public class GameApp extends Application {
                 tokens.getChildren().addAll(O1);
             }
         } else if (loc == 6) {
-            if (token == "X") {
+            if (token.equals("X")) {
                 Line X1 = new Line(170, 320, 230, 380);
                 Line X2 = new Line(230, 320, 170, 380);
                 tokens.getChildren().addAll(X1, X2);
@@ -290,7 +231,7 @@ public class GameApp extends Application {
                 tokens.getChildren().addAll(O1);
             }
         } else if (loc == 7) {
-            if (token == "X") {
+            if (token.equals("X")) {
                 Line X1 = new Line(270, 320, 330, 380);
                 Line X2 = new Line(330, 320, 270, 380);
                 tokens.getChildren().addAll(X1, X2);
@@ -301,7 +242,7 @@ public class GameApp extends Application {
                 tokens.getChildren().addAll(O1);
             }
         } else if (loc == 8) {
-            if (token == "X") {
+            if (token.equals("X")) {
                 Line X1 = new Line(370, 320, 430, 380);
                 Line X2 = new Line(430, 320, 370, 380);
                 tokens.getChildren().addAll(X1, X2);
@@ -319,66 +260,6 @@ public class GameApp extends Application {
 
         stage0 = stage;
 
-        Service service = new Service() {
-            @Override
-            protected Task createTask() {
-                return new Task() {
-                    @Override
-                    protected Object call() throws Exception {
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    var response = client.getNextLine();
-                                    var token = response.substring(8);
-                                    var opponentToken = token == "X" ? "O" : "X";
-                                    while (client.getScanner().hasNextLine()) {
-                                        System.out.println("here!!");
-                                        response = client.getNextLine();
-                                        if (response.startsWith("VALID_MOVE")) {
-                                            int loc = Integer.parseInt(response.substring(12));
-                                            drawTokenBool = true;
-                                            drawTokenHere = loc;
-                                            drawTokenToken = token;
-                                        } else if (response.startsWith("OPPONENT_MOVED")) {
-                                            var loc = Integer.parseInt(response.substring(15));
-                                            drawToken(opponentToken, loc);
-                                        } else if (response.startsWith("MESSAGE")) {
-                                        } else if (response.startsWith("VICTORY")) {
-                                            drawWinner(stage0);
-                                            break;
-                                        } else if (response.startsWith("DEFEAT")) {
-                                            drawLoser(stage0);
-                                            break;
-                                        } else if (response.startsWith("DRAW")) {
-                                            drawDraw(stage0);
-                                            break;
-                                        } else if (response.startsWith("OTHER_PLAYER_LEFT")) {
-                                            drawOpponentLeft(stage0);
-                                            break;
-                                        }
-                                    }
-                                    client.printOut("QUIT");
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                } finally {
-                                    try {
-                                        client.closeSocket();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                        });
-                        return null;
-                    }
-                };
-            }
-        };
-        service.start();
-
-
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         stage.setTitle("Tic Tac & Chat");
 
         //Dropdown menu to do stuff                                             ///////////////NEED TO FINISH IMPLEMENTATION///////////////
@@ -395,20 +276,18 @@ public class GameApp extends Application {
 
 
         //Draw left player
-        Label label1 = new Label("player 1");
+        Label label1 = new Label("PLAYER 1");
         label1.resizeRelocate(45, 140, 1, 1);
         Circle head = new Circle(20);
         head.resizeRelocate(47, 178, 10, 10);
         QuadCurve body = new QuadCurve(35, 250, 65, 170, 100, 250);
 
         //Draw right player
-        Label label2 = new Label("player 2");
+        Label label2 = new Label("PLAYER 2");
         label2.resizeRelocate(510, 140, 1, 1);
         Circle head2 = new Circle(20);
         head2.resizeRelocate(512, 178, 10, 10);
         QuadCurve body2 = new QuadCurve(500, 250, 530, 170, 565, 250);
-        head2.setFill(Color.GREY);
-        body2.setFill(Color.GREY);
 
         //Draw the game board
         //Vertical lines
@@ -432,14 +311,74 @@ public class GameApp extends Application {
                 String loc = checkMove(event.getX(), event.getY());
                 if (!loc.equals("INVALID")) {
                     client.printOut("MOVE " + loc);
+                    System.out.println("sent location");
                 }
             }
         });
 
-//        if (drawTokenBool) {
-//            drawToken(drawTokenToken, drawTokenHere);
-//            drawTokenBool = false;
-//        }
+        if (!threadStarted) {
+            new Thread(() -> {
+                Socket socket = client.getSocket();
+                try {
+                    Scanner in = client.getScanner();
+                    var response = in.nextLine();
+                    var token = response.substring(8);
+                    if (token.equals("X")) {
+                        head2.setFill(Color.GREY);
+                        body2.setFill(Color.GREY);
+                    } else {
+                        head.setFill(Color.GREY);
+                        body.setFill(Color.GREY);
+                    }
+                    var opponentToken = token.equals("X") ? "O" : "X";
+                    while (in.hasNextLine()) {
+                        response = in.nextLine();
+                        if (response.startsWith("VALID_MOVE")) {
+                            int loc = Integer.parseInt(response.substring(11));
+                            Platform.runLater(() -> {
+                                drawToken(token, loc);
+                            });
+                        } else if (response.startsWith("OPPONENT_MOVED")) {
+                            var loc = Integer.parseInt(response.substring(15));
+                            Platform.runLater(() -> {
+                                drawToken(opponentToken, loc);
+                            });
+                        } else if (response.startsWith("VICTORY")) {
+                            Platform.runLater(() -> {
+                                drawWinner(stage);
+                            });
+                            break;
+                        } else if (response.startsWith("DEFEAT")) {
+                            Platform.runLater(() -> {
+                                drawLoser(stage);
+                            });
+                            break;
+                        } else if (response.startsWith("DRAW")) {
+                            Platform.runLater(() -> {
+                                drawDraw(stage);
+                            });
+                            break;
+                        } else if (response.startsWith("OTHER_PLAYER_LEFT")) {
+                            Platform.runLater(() -> {
+                                drawOpponentLeft(stage);
+                            });
+                            break;
+                        }
+                    }
+                    client.printOut("QUIT");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        socket.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+            threadStarted = true;
+        }
 
         //Add all elements to the canvas and display them
         canvas.getChildren().addAll(goToChat, board1, board2, board3, board4, label1, head, body, label2, head2, body2, menuBar, tokens);
