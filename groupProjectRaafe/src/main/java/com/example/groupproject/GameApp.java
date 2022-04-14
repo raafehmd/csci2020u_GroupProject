@@ -2,21 +2,30 @@ package com.example.groupproject;
 
 
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.util.Scanner;
@@ -25,9 +34,11 @@ import java.net.Socket;
 public class GameApp extends Application {
 
     Scene gameScene;
+    Scene chatScene;
     Pane canvas = new Pane();
     Stage stage0;
     static Client client;
+    Chat chat;
 
     boolean turn = true;
     boolean threadStarted = false;
@@ -255,11 +266,59 @@ public class GameApp extends Application {
         }
     }
 
+    // This method adds the client's own message (outgoing) to the chat  box
+    public void addLabelTo(TextField textField, VBox vBox){
+        String messageToSend = textField.getText();
+        if (!messageToSend.isEmpty()){
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.CENTER_RIGHT);
+            hBox.setPadding(new Insets(5,5,5,10));
+
+            Text text = new Text(messageToSend);
+            TextFlow tf = new TextFlow(text);
+
+            tf.setStyle("-fx-color: rgb(0,0,0);" +
+                    "-fx-background-color: rgb(233,233,235);" +
+                    "-fx-background-radius: 20px;");
+            tf.setPadding(new Insets(5,10,5,10));
+
+            hBox.getChildren().add(tf);
+            vBox.getChildren().add(hBox);
+
+            chat.sendMessage(messageToSend);
+            textField.clear();
+        }
+    }
+
+    // This method adds incoming messages to the chat box
+    public static void addLabelFrom(String messageFromClient, VBox vbox){
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_LEFT);
+        hBox.setPadding(new Insets(5,5,5,10));
+
+        Text text =  new Text(messageFromClient);
+        TextFlow textFlow = new TextFlow(text);
+        textFlow.setStyle("-fx-background-color: rgb(233,233,235);" +
+                "-fx-background-radius: 20px;");
+        textFlow.setPadding(new Insets(5,10,5,10));
+        hBox.getChildren().add(textFlow);
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                vbox.getChildren().add(hBox);
+            }
+        });
+
+        System.out.println("Went to addLabelFrom");
+    }
+
     @Override
     public void start(Stage stage) throws IOException, Exception {
 
         stage0 = stage;
 
+        // Designing game scene
         stage.setTitle("Tic Tac & Chat");
 
         //Dropdown menu to do stuff                                             ///////////////NEED TO FINISH IMPLEMENTATION///////////////
@@ -273,7 +332,6 @@ public class GameApp extends Application {
         //Adding all the menu options to the menu
         fileMenu.getItems().addAll(item1, item2);
         MenuBar menuBar = new MenuBar(fileMenu);
-
 
         //Draw left player
         Label label1 = new Label("PLAYER 1");
@@ -298,11 +356,81 @@ public class GameApp extends Application {
         Line board4 = new Line(150, 300, 450, 300);
 
 
+        // Designing chat scene
+        // Drop down menu
+        Menu menu = new Menu("Menu");
+        MenuBar menuBar_chat = new MenuBar();
+        // Empties chat box
+        MenuItem newChat = new MenuItem("New Chat");
+        // Closes application
+        MenuItem exit = new MenuItem("Exit");
+        menu.getItems().add(newChat);
+        menu.getItems().add(exit);
+        menuBar_chat.getMenus().add(menu);
+
+        // Return to game button
+        Button backToGame = new Button();
+        backToGame.setText("Game");
+
+        // Create textfield and send button
+        BorderPane pane = new BorderPane();
+        pane.setPadding(new Insets(5, 5, 5, 5));
+        Button send = new Button("Send");
+        pane.setRight(send);
+        TextField textField = new TextField();
+        textField.setPromptText("Type anything...");
+        textField.setAlignment(Pos.BOTTOM_LEFT);
+        pane.setCenter(textField);
+
+        // Placing top row objects (menubar, back to game button)
+        BorderPane topPane = new BorderPane();
+        /*Label playerName = new Label(player);
+        playerName.setAlignment(Pos.TOP_CENTER);
+        playerName.setFont(Font.font("Arial Rounded MT Bold", 20));
+        topPane.setCenter(playerName);*/
+        topPane.setLeft(menuBar_chat);
+        topPane.setPadding(new Insets(5,5,5,5));
+        topPane.setRight(backToGame);
+
+        // Creating vBox and ScrollPane which will contain the chat
+        BorderPane primaryPane = new BorderPane();
+        VBox vBox = new VBox();
+        vBox.setPrefSize(450, 200);
+        textField.setFocusTraversable(true);
+        ScrollPane scrollPane = new ScrollPane(vBox);
+        primaryPane.setCenter(scrollPane);
+        primaryPane.setBottom(pane);
+        primaryPane.setTop(topPane);
+        BorderPane.setAlignment(topPane, Pos.CENTER);
+
+        chatScene = new Scene(primaryPane, 500, 300);
+        textField.requestFocus();
+
+        backToGame.setOnAction(e -> stage.setScene(gameScene));                 // GAME DOESN'T WORK AFTER SWITCHING TO CHAT
+        textField.setOnAction(e -> {addLabelTo(textField, vBox);});
+        send.setOnAction(e -> {addLabelTo(textField, vBox);});
+        exit.setOnAction(e -> {
+            Platform.exit();
+            System.exit(0);
+        });
+        newChat.setOnAction(e -> {vBox.getChildren().clear();});
+
         //create button and change scene on press                                                           ///////////////NEED TO FINISH IMPLEMENTATION///////////////
         Button goToChat = new Button("Chat");
         goToChat.setOnAction(e -> turn = true); /////////////// THIS LINE OF CODE IS TO TEST TURN BASED SYSTEM, DELETE WHEN DONE. ///////////////
         goToChat.resizeRelocate(280, 460, 1, 1);
-        //goToChat.setOnAction(e -> stage.setScene(chatScene)); /////////////// UNCOMMENT WHEN CHAT SCENE EXISTS. ///////////////
+        goToChat.setOnAction(e -> stage.setScene(chatScene)); /////////////// UNCOMMENT WHEN CHAT SCENE EXISTS. ///////////////
+
+
+        chat = new Chat(client.getSocket());
+
+        chat.receiveMessage(vBox);
+        vBox.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                scrollPane.setVvalue((Double) t1);
+            }
+        });
 
 
         //Mouse click system to spawn tokens
@@ -375,7 +503,6 @@ public class GameApp extends Application {
                     }
                 }
             }).start();
-
             threadStarted = true;
         }
 
