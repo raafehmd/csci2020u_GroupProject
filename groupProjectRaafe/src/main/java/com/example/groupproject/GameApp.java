@@ -311,7 +311,6 @@ public class GameApp extends Application {
                 String loc = checkMove(event.getX(), event.getY());
                 if (!loc.equals("INVALID")) {
                     client.printOut("MOVE " + loc);
-                    System.out.println("sent location");
                 }
             }
         });
