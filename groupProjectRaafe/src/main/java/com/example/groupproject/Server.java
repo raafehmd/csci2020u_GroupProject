@@ -18,12 +18,12 @@ public class Server {
             var pool = Executors.newFixedThreadPool(200);
             while (true) {
                 Game game = new Game();
-                Chat chat1 = new Chat(listener.accept());
-                Chat chat2 = new Chat(listener.accept());
                 pool.execute(game.new Player(listener.accept(), "X"));
                 pool.execute(game.new Player(listener.accept(), "O"));
-                pool.execute((Runnable) chat1);
-                pool.execute((Runnable) chat2);
+//                Chat chat1 = new Chat(listener.accept());
+//                Chat chat2 = new Chat(listener.accept());
+//                pool.execute((Runnable) chat1);
+//                pool.execute((Runnable) chat2);
             }
         }
     }
@@ -89,16 +89,6 @@ class Game {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-//            } finally {
-//                if (opponent != null && opponent.output != null) {
-//                    opponent.output.println("OTHER_PLAYER_LEFT");
-//                    System.out.println("sending left mssg");
-//                }
-//                try {
-//                    socket.close();
-//                } catch (IOException e) {
-//                }
-//            }
         }
 
         private void setup() throws IOException {
@@ -106,7 +96,7 @@ class Game {
             output = new PrintWriter(socket.getOutputStream(), true);
             System.out.println("WELCOME " + token);
             output.println("WELCOME " + token);
-            if (token == "X") {
+            if (token.equals("X")) {
                 currentPlayer = this;
             } else {
                 opponent = currentPlayer;
@@ -118,9 +108,17 @@ class Game {
             while (input.hasNextLine()) {
                 var command = input.nextLine();
                 if (command.startsWith("QUIT")) {
+                    try {
+                        socket.close();
+                    } catch (IOException e) {
+                    }
                     return;
                 } else if (command.startsWith("MOVE")) {
                     processMoveCommand(Integer.parseInt(command.substring(5)));
+                } else if (command.startsWith("CHAT")) {
+                    processChatCommand(command);
+                } else if (command.startsWith("NEW")) {
+                    resetGame(command.substring(4));
                 }
             }
         }
@@ -141,64 +139,25 @@ class Game {
                 e.printStackTrace();
             }
         }
-    }
-}
 
-class Chat {
-    private Socket socket;
-    private BufferedReader bufferedReader;
-    private BufferedWriter bufferedWriter;
-
-    public Chat(Socket socket) {
-        try {
-            this.socket = socket;
-            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        } catch (IOException e) {
-            System.out.println("Error creating server");
-            e.printStackTrace();
-            close(socket, bufferedReader, bufferedWriter);
-        }
-    }
-
-    public void sendMessage(String message){
-        try {
-            bufferedWriter.write(message);
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
-        } catch (IOException e){
-            e.printStackTrace();
-            System.out.println("Error sending message");
-            close(socket, bufferedReader, bufferedWriter);
-        }
-    }
-
-    public void receiveMessage(VBox vBox){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (socket.isConnected()){
-                    try {
-                        String message = bufferedReader.readLine();
-                        GameApp.addLabelFrom(message, vBox);
-                    } catch (IOException e){
-                        e.printStackTrace();
-                        System.out.println("Error receiving message");
-                        close(socket, bufferedReader, bufferedWriter);
-                        break;
-                    }
-                }
+        private void processChatCommand(String command) {
+            try {
+                // output.println("CHAT " + message);
+                opponent.output.println(command);
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
             }
-        }).start();
-    }
+        }
 
-    public void close(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
-        try {
-            bufferedReader.close();
-            bufferedWriter.close();
-            socket.close();
-        } catch (IOException e){
-            e.printStackTrace();
+        private void resetGame(String recievedToken) {
+            opponent.output.println("NEW");
+            board = new Player[9];
+            if (token.equals(recievedToken)) {
+                currentPlayer = this;
+            } else {
+                opponent = currentPlayer;
+                opponent.opponent = this;
+            }
         }
     }
 }

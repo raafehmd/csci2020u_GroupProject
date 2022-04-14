@@ -2,14 +2,9 @@ package com.example.groupproject;
 
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.util.concurrent.atomic.AtomicReference;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -35,12 +30,13 @@ public class GameApp extends Application {
 
     Scene gameScene;
     Scene chatScene;
+    Stage stage = new Stage();
     Pane canvas = new Pane();
-    Stage stage0;
-    static Client client;
-    Chat chat;
 
-    boolean turn = true;
+    static Client client;
+
+    String myToken = "X";
+
     boolean threadStarted = false;
     Group tokens = new Group();
     int board[] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -49,7 +45,6 @@ public class GameApp extends Application {
     public void clear() {
         tokens.getChildren().clear();
         board = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-        turn = true;
     }
 
     //This function displays the winner page
@@ -62,7 +57,7 @@ public class GameApp extends Application {
         youWin.setScaleX(8);
         youWin.setScaleY(8);
         exitWinScreen.resizeRelocate(280, 460, 1, 1);
-        exitWinScreen.setOnAction(e -> stage.setScene(gameScene));
+        exitWinScreen.setOnAction(e -> stage.close());
         clear();
 
         winCanvas.getChildren().addAll(exitWinScreen, youWin);
@@ -78,9 +73,9 @@ public class GameApp extends Application {
         Button exitWinScreen = new Button("Tsk..");
         Text youWin = new Text(285, 250, phrase);
         youWin.setScaleX(8);
-        youWin.setScaleY(10);
+        youWin.setScaleY(8);
         exitWinScreen.resizeRelocate(280, 460, 1, 1);
-        exitWinScreen.setOnAction(e -> stage.setScene(gameScene));
+        exitWinScreen.setOnAction(e -> stage.close());
         clear();
 
         winCanvas.getChildren().addAll(exitWinScreen, youWin);
@@ -98,7 +93,7 @@ public class GameApp extends Application {
         itsDraw.setScaleX(8);
         itsDraw.setScaleY(8);
         exitDrawScreen.resizeRelocate(280, 460, 1, 1);
-        exitDrawScreen.setOnAction(e -> stage.setScene(gameScene));
+        exitDrawScreen.setOnAction(e -> stage.close());
         clear();
 
         drawCanvas.getChildren().addAll(exitDrawScreen, itsDraw);
@@ -116,7 +111,7 @@ public class GameApp extends Application {
         youWin.setScaleX(8);
         youWin.setScaleY(8);
         exitWinScreen.resizeRelocate(280, 460, 1, 1);
-        exitWinScreen.setOnAction(e -> stage.setScene(gameScene));
+        exitWinScreen.setOnAction(e -> stage.close());
         clear();
 
         winCanvas.getChildren().addAll(exitWinScreen, youWin);
@@ -161,8 +156,6 @@ public class GameApp extends Application {
 
     // This function draws the players corresponding token within the tile they clicked in if it is their turn
     public void drawToken(String token, int loc) {
-
-        // System.out.println(mouseX + " " + mouseY); // For debugging purposes
 
         if (loc == 0) {
             if (token.equals("X")) {
@@ -267,12 +260,12 @@ public class GameApp extends Application {
     }
 
     // This method adds the client's own message (outgoing) to the chat  box
-    public void addLabelTo(TextField textField, VBox vBox){
+    public void sendMessage(TextField textField, VBox vBox) {
         String messageToSend = textField.getText();
-        if (!messageToSend.isEmpty()){
+        if (!messageToSend.isEmpty()) {
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER_RIGHT);
-            hBox.setPadding(new Insets(5,5,5,10));
+            hBox.setPadding(new Insets(5, 5, 5, 10));
 
             Text text = new Text(messageToSend);
             TextFlow tf = new TextFlow(text);
@@ -280,52 +273,42 @@ public class GameApp extends Application {
             tf.setStyle("-fx-color: rgb(0,0,0);" +
                     "-fx-background-color: rgb(233,233,235);" +
                     "-fx-background-radius: 20px;");
-            tf.setPadding(new Insets(5,10,5,10));
+            tf.setPadding(new Insets(5, 10, 5, 10));
 
             hBox.getChildren().add(tf);
             vBox.getChildren().add(hBox);
 
-            chat.sendMessage(messageToSend);
+            client.printOut("CHAT " + messageToSend);
             textField.clear();
         }
     }
 
     // This method adds incoming messages to the chat box
-    public static void addLabelFrom(String messageFromClient, VBox vbox){
+    public static void getMessage(String messageFromClient, VBox vbox) {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_LEFT);
-        hBox.setPadding(new Insets(5,5,5,10));
+        hBox.setPadding(new Insets(5, 5, 5, 10));
 
-        Text text =  new Text(messageFromClient);
+        Text text = new Text(messageFromClient);
         TextFlow textFlow = new TextFlow(text);
         textFlow.setStyle("-fx-background-color: rgb(233,233,235);" +
                 "-fx-background-radius: 20px;");
-        textFlow.setPadding(new Insets(5,10,5,10));
+        textFlow.setPadding(new Insets(5, 10, 5, 10));
         hBox.getChildren().add(textFlow);
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                vbox.getChildren().add(hBox);
-            }
-        });
-
-        System.out.println("Went to addLabelFrom");
+        Platform.runLater(() -> vbox.getChildren().add(hBox));
     }
 
     @Override
     public void start(Stage stage) throws IOException, Exception {
 
-        stage0 = stage;
-
         // Designing game scene
-        stage.setTitle("Tic Tac & Chat");
+        stage.setTitle("Tic Tac & Chat - Game Window");
 
-        //Dropdown menu to do stuff                                             ///////////////NEED TO FINISH IMPLEMENTATION///////////////
+        //Dropdown menu to do stuff
         Menu fileMenu = new Menu("Menu");
         //Wipes everything and creates a new game
         MenuItem item1 = new MenuItem("New Game");
-        item1.setOnAction(e -> clear());
         //Closes the application
         MenuItem item2 = new MenuItem("Exit");
         item2.setOnAction(e -> stage.close());
@@ -372,7 +355,7 @@ public class GameApp extends Application {
         Button backToGame = new Button();
         backToGame.setText("Game");
 
-        // Create textfield and send button
+        // Create text field and send button
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(5, 5, 5, 5));
         Button send = new Button("Send");
@@ -382,14 +365,10 @@ public class GameApp extends Application {
         textField.setAlignment(Pos.BOTTOM_LEFT);
         pane.setCenter(textField);
 
-        // Placing top row objects (menubar, back to game button)
+        // Placing top row objects (menu bar, back to game button)
         BorderPane topPane = new BorderPane();
-        /*Label playerName = new Label(player);
-        playerName.setAlignment(Pos.TOP_CENTER);
-        playerName.setFont(Font.font("Arial Rounded MT Bold", 20));
-        topPane.setCenter(playerName);*/
         topPane.setLeft(menuBar_chat);
-        topPane.setPadding(new Insets(5,5,5,5));
+        topPane.setPadding(new Insets(5, 5, 5, 5));
         topPane.setRight(backToGame);
 
         // Creating vBox and ScrollPane which will contain the chat
@@ -406,30 +385,36 @@ public class GameApp extends Application {
         chatScene = new Scene(primaryPane, 500, 300);
         textField.requestFocus();
 
-        backToGame.setOnAction(e -> stage.setScene(gameScene));                 // GAME DOESN'T WORK AFTER SWITCHING TO CHAT
-        textField.setOnAction(e -> {addLabelTo(textField, vBox);});
-        send.setOnAction(e -> {addLabelTo(textField, vBox);});
+        backToGame.setOnAction(e -> {
+            stage.setTitle("Tic Tac & Chat - Game Window");
+            stage.setScene(gameScene);
+        });
+        textField.setOnAction(e -> {
+            sendMessage(textField, vBox);
+        });
+        send.setOnAction(e -> {
+            sendMessage(textField, vBox);
+        });
         exit.setOnAction(e -> {
             Platform.exit();
             System.exit(0);
         });
-        newChat.setOnAction(e -> {vBox.getChildren().clear();});
+        newChat.setOnAction(e -> {
+            vBox.getChildren().clear();
+        });
 
-        //create button and change scene on press                                                           ///////////////NEED TO FINISH IMPLEMENTATION///////////////
+        item1.setOnAction(e -> {
+            client.printOut("NEW " + myToken);
+            vBox.getChildren().clear();
+            clear();
+        });
+
+        //create button and change scene on press
         Button goToChat = new Button("Chat");
-        goToChat.setOnAction(e -> turn = true); /////////////// THIS LINE OF CODE IS TO TEST TURN BASED SYSTEM, DELETE WHEN DONE. ///////////////
         goToChat.resizeRelocate(280, 460, 1, 1);
-        goToChat.setOnAction(e -> stage.setScene(chatScene)); /////////////// UNCOMMENT WHEN CHAT SCENE EXISTS. ///////////////
-
-
-        chat = new Chat(client.getSocket());
-
-        chat.receiveMessage(vBox);
-        vBox.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                scrollPane.setVvalue((Double) t1);
-            }
+        goToChat.setOnAction(e -> {
+            stage.setTitle("Tic Tac & Chat - Chat Window");
+            stage.setScene(chatScene);
         });
 
 
@@ -450,6 +435,7 @@ public class GameApp extends Application {
                     Scanner in = client.getScanner();
                     var response = in.nextLine();
                     var token = response.substring(8);
+                    myToken = token;
                     if (token.equals("X")) {
                         head2.setFill(Color.GREY);
                         body2.setFill(Color.GREY);
@@ -469,6 +455,11 @@ public class GameApp extends Application {
                             var loc = Integer.parseInt(response.substring(15));
                             Platform.runLater(() -> {
                                 drawToken(opponentToken, loc);
+                            });
+                        } else if (response.startsWith("CHAT")) {
+                            final String message = response.substring(5);
+                            Platform.runLater(() -> {
+                                getMessage(message, vBox);
                             });
                         } else if (response.startsWith("VICTORY")) {
                             Platform.runLater(() -> {
@@ -490,6 +481,11 @@ public class GameApp extends Application {
                                 drawOpponentLeft(stage);
                             });
                             break;
+                        } else if (response.equals("NEW")) {
+                            Platform.runLater(() -> {
+                                clear();
+                                vBox.getChildren().clear();
+                            });
                         }
                     }
                     client.printOut("QUIT");
@@ -519,7 +515,6 @@ public class GameApp extends Application {
             return;
         }
         client = new Client(args[0]);
-        System.out.println("connected");
         launch(args);
     }
 }
