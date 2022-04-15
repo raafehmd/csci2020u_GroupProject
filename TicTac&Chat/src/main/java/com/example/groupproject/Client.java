@@ -35,7 +35,7 @@ public class Client {
     }
 
     /**
-     * Javadoc text.
+     * Get socket instance
      *
      * @return
      */
