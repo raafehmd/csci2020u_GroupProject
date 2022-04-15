@@ -27,5 +27,9 @@ The following gif showcases the menubar and it's functions for both the game and
 7. Switch between Tic Tac & Chat game and a Chat window!
 
 # Resources
+1. Gradle 
+2. Plugin: 'org.openjfx.javafxplugin version' '0.0.10'
+3. Plugin: 'org.javamodularity.moduleplugin' version '1.8.10'
+4. Plugin: 'org.beryx.jlink' version '2.24.1'
 
 
