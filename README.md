@@ -1,4 +1,4 @@
-![Tic_Tac_and_Chat (1)](https://user-images.githubusercontent.com/90470871/162763821-7395a1bf-24d8-4ff2-a3e3-8eac203f0d5f.png)
+![image](https://user-images.githubusercontent.com/90470871/163510282-3128d037-4448-4557-8339-7f8a9f9e06a3.png)
 
 # Overview
 Tic Tac & Chat is an application where you can play Tic Tac Toe against another player and chat with your friends! The application features a drop-down menu in which you can make use of those problem-solving skills, then boast about your game win afterwards.
