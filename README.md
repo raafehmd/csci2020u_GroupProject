@@ -11,7 +11,7 @@ As shown below, to run the project you must first open the 'Run/Debug configurat
 
 https://user-images.githubusercontent.com/90229554/163505643-29487a26-4efc-4810-a20e-098403e9a122.mp4
 
-The following gif showcases the menubar and it's functions. 
+The following gif showcases the menubar and it's functions for both the game and the chat. 
 
 ![2020U-p2-g](https://user-images.githubusercontent.com/90229554/163505957-e18e3d8d-2d5d-4d90-b574-ce616d0c116d.gif)
 
