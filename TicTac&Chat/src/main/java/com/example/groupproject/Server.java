@@ -87,7 +87,8 @@ class Game {
 
 
     /**
-     * This class handles
+     * This class implements the Runner interface in which the following instances
+     * are executed by a thread
      */
     class Player implements Runnable {
         String token;
