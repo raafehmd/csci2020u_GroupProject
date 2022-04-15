@@ -15,6 +15,15 @@ The following gif showcases the menubar and it's functions for both the game and
 
 ![2020U-p2-g](https://user-images.githubusercontent.com/90229554/163505957-e18e3d8d-2d5d-4d90-b574-ce616d0c116d.gif)
 
+Implementation:
+1. Press alt + shift + f9 to go to 'Edit Configuations'
+2. Select the 'GameApp' class
+3. Under 'Build and run', enter your IPv4 address as a String input in the box 'CLI arguments to your application' (NOTE: an IPv4 address uniquely identifies a network interface on a machine and is required to run the program).
+4. Ensure that the selected class has multiple instances enabled (Click 'Modify options' then select 'Allow multiple instances')
+5. Run Server.java
+6. Run two instances of GameApp.java 
+7. Switch between Tic Tac & Chat game and a Chat window!
+
 
 
 
