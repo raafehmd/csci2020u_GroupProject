@@ -7,6 +7,8 @@ Tic Tac & Chat is an application where you can play Tic Tac Toe against another 
 # Defining Moves...
 ![image](https://user-images.githubusercontent.com/90470871/163513042-0ff8cca7-9a75-42b8-bccb-946b8d21d97a.png)
 
+# How to Clone
+Copy link to repository and clone it in command line.
 
 # How to Run
 As shown below, to run the project you must first open the 'Run/Debug configurations' dialog for GameApp and change the ipv4 address in the program arguments to the ipv4 address of your device. Then you need to run the Server application once and then run two instances of the GameApp application.
