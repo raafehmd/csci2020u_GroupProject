@@ -10,6 +10,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
 
+/**
+ * This class connects with clients and starts the game.
+ */
 public class Server {
 
     public static void main(String[] args) throws Exception {
@@ -25,6 +28,9 @@ public class Server {
     }
 }
 
+/**
+ * This class handles all game logic and errors that may occur
+ */
 class Game {
 
     // Board cells numbered 0-8, top to bottom, left to right; null if empty
@@ -32,6 +38,10 @@ class Game {
 
     Player currentPlayer;
 
+    /**
+     * This function determines if a player has won through the location of the tokens on the board.
+     * @return Returns a boolean on whether a player has won
+     */
     public boolean hasWinner() {
         return (board[0] != null && board[0] == board[1] && board[0] == board[2])
                 || (board[3] != null && board[3] == board[4] && board[3] == board[5])
@@ -43,6 +53,10 @@ class Game {
                 || (board[2] != null && board[2] == board[4] && board[2] == board[6]);
     }
 
+    /**
+     * This function determines if the board is full
+     * @return Returns a boolean on whether the board is full
+     */
     public boolean boardFilledUp() {
         for (Player p : board) {
             if (p == null) {
@@ -51,6 +65,13 @@ class Game {
         }
         return true;
     }
+
+    /**
+     * This function catches the invalid actions a player may take.
+     *
+     * @param loc the index of a tile on the board
+     * @param player the layout of the scene
+     */
 
     public synchronized void move(int loc, Player player) {
         if (player != currentPlayer) {
@@ -65,6 +86,9 @@ class Game {
     }
 
 
+    /**
+     * This class handles
+     */
     class Player implements Runnable {
         String token;
         Player opponent;
