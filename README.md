@@ -27,10 +27,3 @@ Implementation:
 6. Run two instances of GameApp.java 
 7. Switch between Tic Tac & Chat game and a Chat window!
 
-
-
-
-# Resources
-[libraries, dependencies..]
-
-# [SheildsIO Data Section]
