@@ -26,6 +26,10 @@ import javafx.stage.Stage;
 import java.util.Scanner;
 import java.net.Socket;
 
+/**
+ * Contains and handles all display methods to display the game and chat windows
+ * and some logic to handle the application.
+ */
 public class GameApp extends Application {
 
     Scene gameScene;
@@ -41,13 +45,19 @@ public class GameApp extends Application {
     Group tokens = new Group();
     int board[] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-    // Cleans all variables for another game
+    /**
+     * Resets all variables in preparation for another game
+     */
     public void clear() {
         tokens.getChildren().clear();
         board = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
     }
 
-    //This function displays the winner page
+    /**
+     * This function displays the winner page
+     *
+     * @param stage  The current stage that the application is on.
+     */
     public void drawWinner(Stage stage) {
         Scene winScene;
         Pane winCanvas = new Pane();
@@ -65,7 +75,11 @@ public class GameApp extends Application {
         stage.setScene(winScene);
     }
 
-    //This function displays the loser page
+    /**
+     * This function displays the loser page
+     *
+     * @param stage  The current stage that the application is on.
+     */
     public void drawLoser(Stage stage) {
         Scene winScene;
         Pane winCanvas = new Pane();
@@ -83,7 +97,11 @@ public class GameApp extends Application {
         stage.setScene(winScene);
     }
 
-    //This function displays the game draw page
+    /**
+     * This function displays the draw page
+     *
+     * @param stage  The current stage that the application is on.
+     */
     public void drawDraw(Stage stage) {
         Scene drawScene;
         Pane drawCanvas = new Pane();
@@ -101,7 +119,11 @@ public class GameApp extends Application {
         stage.setScene(drawScene);
     }
 
-    //This function displays the player left page
+    /**
+     * This function displays a page that says that a player left
+     *
+     * @param stage  The current stage that the application is on.
+     */
     public void drawOpponentLeft(Stage stage) {
         Scene winScene;
         Pane winCanvas = new Pane();
@@ -118,7 +140,13 @@ public class GameApp extends Application {
         winScene = new Scene(winCanvas, 600, 500);
         stage.setScene(winScene);
     }
-
+    /**
+     * This function determines if the location the player clicked on was a valid tile
+     *
+     * @param mouseX The x value of the mouse position.
+     * @param mouseY The y value of the mouse position.
+     * @return a string that is invalid or an index of the playing board
+     */
     public String checkMove(double mouseX, double mouseY) {
         String loc = "INVALID";
 
@@ -154,7 +182,12 @@ public class GameApp extends Application {
         return loc;
     }
 
-    // This function draws the players corresponding token within the tile they clicked in if it is their turn
+    /**
+     * This function adds the client's own message (outgoing) to the chat box
+     *
+     * @param textField the message that will be sent to another client.
+     * @param vBox the layout of the scene
+     */
     public void drawToken(String token, int loc) {
 
         if (loc == 0) {
@@ -259,7 +292,12 @@ public class GameApp extends Application {
         }
     }
 
-    // This method adds the client's own message (outgoing) to the chat  box
+    /**
+     * This function adds the client's own message (outgoing) to the chat box
+     *
+     * @param textField the message that will be sent to another client.
+     * @param vBox the layout of the scene
+     */
     public void sendMessage(TextField textField, VBox vBox) {
         String messageToSend = textField.getText();
         if (!messageToSend.isEmpty()) {
@@ -283,7 +321,12 @@ public class GameApp extends Application {
         }
     }
 
-    // This method adds incoming messages to the chat box
+    /**
+     * This function adds incoming messages to the chat box
+     *
+     * @param messageFromClient the message that will be recieved from another client.
+     * @param vbox the layout of the scene
+     */
     public static void getMessage(String messageFromClient, VBox vbox) {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_LEFT);
