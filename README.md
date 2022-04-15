@@ -26,3 +26,6 @@ The following gif showcases the menubar and it's functions for both the game and
 6. Run two instances of GameApp.java 
 7. Switch between Tic Tac & Chat game and a Chat window!
 
+# Resources
+
+
